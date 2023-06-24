@@ -52,7 +52,7 @@ window.addEventListener("load", function () {
       this.vy = Math.random() * 5 - 2.5;
       this.basePosX = this.x;
       this.basePosY = this.y;
-      this.maxDistance = 150;
+      this.maxDistance = 100;
       this.friction = 0.8;
     }
     draw() {
