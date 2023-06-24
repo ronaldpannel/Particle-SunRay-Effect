@@ -7,7 +7,7 @@ window.addEventListener("load", function () {
   let index;
 
   let particleArray = [];
-  let numOfParticles = 60;
+  let numOfParticles = 150;
   let pointer = {
     x: canvas.width * 0.5,
     y: canvas.height * 0.5,
@@ -41,18 +41,18 @@ window.addEventListener("load", function () {
       this.radius = Math.floor(Math.random() * 5 + 3);
       this.x = Math.floor(
         Math.random() * (canvas.width - this.radius * 2 - this.radius * 2) +
-          this.radius * 2
+          this.radius * 3
       );
       this.y = Math.floor(
         Math.random() * (canvas.height - this.radius * 2 - this.radius * 2) +
           this.radius * 2
       );
       this.density = Math.random() * 40 + 20;
-      this.vx = Math.random() * 10 - 2.5;
-      this.vy = Math.random() * 10 - 2.5;
+      this.vx = Math.random() * 5 - 2.5;
+      this.vy = Math.random() * 5 - 2.5;
       this.basePosX = this.x;
       this.basePosY = this.y;
-      this.maxDistance = 300;
+      this.maxDistance = 150;
       this.friction = 0.8;
     }
     draw() {
@@ -86,23 +86,21 @@ window.addEventListener("load", function () {
     }
     connectParticles() {
       for (let i = 0; i < particleArray.length; i++) {
-        for (let j = i; j < particleArray.length; j++) {
-          let dx = particleArray[i].x - particleArray[j].x;
-          let dy = particleArray[i].y - particleArray[j].y;
-          let distance = Math.hypot(dx, dy);
-          if (distance > this.maxDistance) {
-            let index = i;
-            if (index % 2 === 0) {
-              ctx.save();
-              ctx.globalAlpha = 0.009;
-              ctx.beginPath();
-              ctx.strokeStyle = grad;
-              ctx.moveTo(particleArray[i].x, particleArray[i].y);
-              ctx.lineTo(pointer.x, pointer.y);
-              ctx.stroke();
-              ctx.closePath();
-              ctx.restore();
-            }
+        let dx = particleArray[i].x - pointer.x;
+        let dy = particleArray[i].y - pointer.y;
+        let distance = Math.hypot(dx, dy);
+        if (distance > this.maxDistance) {
+          let index = i;
+          if (index % 2 === 0) {
+            ctx.save();
+            ctx.globalAlpha = 0.009;
+            ctx.beginPath();
+            ctx.strokeStyle = grad;
+            ctx.moveTo(particleArray[i].x, particleArray[i].y);
+            ctx.lineTo(pointer.x, pointer.y);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
           }
         }
       }
